@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <input id="title-input" type="text" placeholder="title" />
+    <br /><br />
+    <input id="desc-input" type="text" placeholder="description" />
+    <br /><br />
+    <button onclick="addToDo()">Add ToDo</button>
+    <br /><br />
+    <div id="list">
+
+
+    </div>
+    <script async defer>
+        let globalId = 1
+        function addToDo() {
+            const title = document.getElementById("title-input").value
+            const desc = document.getElementById("desc-input").value
+            const outDiv = document.getElementById("list");
+            if (title && desc) {
+
+                outDiv.appendChild(addChild(title, desc, globalId++))
+            }
+        }
+
+        function addChild(title, desc, id) {
+            const child = document.createElement("div")
+            const titleDiv = document.createElement("div");
+            const descDiv = document.createElement("div");
+            const doneBtn = document.createElement("button");
+            titleDiv.innerHTML = title
+            descDiv.innerHTML = desc
+            doneBtn.innerText = "Mark As Done"
+            doneBtn.setAttribute("onclick", `markAsDone(${id})`)
+            child.setAttribute("id", `${id}`)
+            child.appendChild(titleDiv)
+            child.appendChild(descDiv)
+            child.appendChild(doneBtn)
+            return child
+        }
+
+        function markAsDone(id) {
+            const doneElem = document.getElementById(id)
+            doneElem.childNodes[2].innerHTML = "Done"
+
+        }
+    </script>
+</body>
+
+</html>
